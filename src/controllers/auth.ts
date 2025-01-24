@@ -1,7 +1,7 @@
 import express from 'express';
 import { deleteToken, generateToken, saveToken } from '../utils/localPersistence';
 import UserService from '../services/users';
-import { compare } from '../utils/hash';
+import { compare, hash } from '../utils/hash';
 import { errorMessages, handleError } from '../app/errors';
 import { endpoints } from '../app/api';
 
@@ -32,6 +32,16 @@ router.post(`/${endpoints.login}`, async (req, res) => {
 router.post(`/${endpoints.logout}`, (_, res) => {
     deleteToken(res);
     res.status(200).send('logout');
+})
+
+router.post(`/${endpoints.register}`, (req, res) => {
+    try{
+        const user = req.body;
+        const toSave = {...user, password: hash(user.password)};
+        res.status(200).send('registered');
+    } catch (e) {
+        res.status(500).json(e);
+    }
 })
 
 export default router;

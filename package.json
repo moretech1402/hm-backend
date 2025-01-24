@@ -38,7 +38,7 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "marked": "^14.1.2",
-    "mongoose": "^8.7.0",
+    "mongoose": "^8.9.5",
     "mysql2": "^3.11.3",
     "pg": "^8.13.0",
     "swagger-jsdoc": "^6.2.8",

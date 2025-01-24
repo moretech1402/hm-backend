@@ -10,7 +10,7 @@ export const fakeRoom = () => {
   roomType: `Deluxe ${faker.helpers.arrayElement(roomParams.letters)}`,
   number: random.number(roomParams.numbers, 0),
   picture: faker.image.url(),
-  bedType: faker.helpers.arrayElement(roomParams.types),
+  bedType: faker.helpers.arrayElement(roomParams.bedTypes),
   roomFloor: faker.helpers.arrayElement(roomParams.floors),
   facilities: faker.helpers.arrayElements(roomParams.facilities),
   rate: random.number(roomParams.rates, 2),

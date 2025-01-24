@@ -5,5 +5,6 @@ export const endpoints = {
     contacts: 'contacts',
     auth: 'auth',
     login: 'login',
-    logout: 'logout'
+    logout: 'logout',
+    register: 'register',
 }

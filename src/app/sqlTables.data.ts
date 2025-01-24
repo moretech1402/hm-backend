@@ -3,6 +3,7 @@ import { UserModel } from "../db/schemas/userSchema";
 import { ContactModel } from "../db/schemas/contactSchema";
 import { RoomModel } from "../db/schemas/roomSchema";
 import { BookingModel } from "../db/schemas/bookingSchema";
+import { roomParams } from "./hotelParams";
 
 export enum tablesEnum { 
     Users = 'users',
@@ -59,17 +60,17 @@ export const tables: SQLTableInterface[] = [
         tableName: tablesEnum.Rooms,
         model: RoomModel,
         headers: [
-            { key: 'dateAdded', type: 'DATETIME', nullable: false },
+            { key: 'dateAdded', type: 'DATETIME', nullable: false, default: 'CURRENT_TIMESTAMP' },
             { key: 'roomType', type: 'VARCHAR(100)', nullable: false },
             { key: 'number', type: 'INT', nullable: false },
-            { key: 'picture', type: 'VARCHAR(255)', nullable: true },
-            { key: 'bedType', type: 'VARCHAR(100)', nullable: true },
-            { key: 'roomFloor', type: 'VARCHAR(50)', nullable: true },
-            { key: 'facilities', type: 'TEXT', nullable: true },
+            { key: 'picture', type: 'VARCHAR(255)', nullable: true, default: '' },
+            { key: 'bedType', type: 'VARCHAR(100)', nullable: true, default: roomParams.bedTypes[0] },
+            { key: 'roomFloor', type: 'VARCHAR(50)', nullable: true, default: roomParams.floors[0] },
+            { key: 'facilities', type: 'TEXT', nullable: true, default: '[]' },
             { key: 'rate', type: 'DECIMAL(10, 2)', nullable: true },
-            { key: 'discount', type: 'INT', nullable: true },
-            { key: 'status', type: 'VARCHAR(50)', nullable: false },
-        ]
+            { key: 'discount', type: 'INT', nullable: true, default: '0' },
+            { key: 'status', type: 'VARCHAR(50)', nullable: false, default: 'Booked' },
+        ]        
     },
     {
         tableName: tablesEnum.Bookings,

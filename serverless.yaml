@@ -1,0 +1,27 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: morecore
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: hm-api
+service: hm-service
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-west-3
+  memorySize: 128
+  timeout: 10
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
+
+# package:
+#   individually: true
+#   excludeDevDependencies: true
+
+# plugins:
+#   - serverless-offline

@@ -25,7 +25,7 @@ const router = express.Router();
  *               type: string
  *               example: <h1>Hello world!</h1>
  */
-router.get('/', (_, res) => {
+router.get('/hello', (_, res) => {
     res.send('<h1>Hello world!</h1>');
 });
 

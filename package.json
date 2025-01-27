@@ -6,6 +6,7 @@
     "build": "tsc",
     "test": "jest",
     "offline": "npm run build && serverless offline",
+    "serverless": "npm run build && serverless deploy --stage ''",
     "start": "nodemon --exec ts-node src/server.ts",
     "seed": "ts-node src/seed.ts"
   },

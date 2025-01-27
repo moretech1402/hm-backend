@@ -10,18 +10,28 @@ provider:
   region: eu-west-3
   memorySize: 128
   timeout: 10
+  environment:
+    TOKEN_SECRET_KEY: ${env:TOKEN_SECRET_KEY}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    SQL_HOST: ${env:SQL_HOST}
+    SQL_USER: ${env:SQL_USER}
+    SQL_PASSWORD: ${env:SQL_PASSWORD}
+    DB_TYPE: ${env:DB_TYPE}
 
 functions:
-  hello:
-    handler: handler.hello
+  api:
+    handler: dist/handler.handler
     events:
       - http:
-          path: /
-          method: get
+          path: /{proxy+}
+          method: ANY
+          cors: true
 
 # package:
 #   individually: true
 #   excludeDevDependencies: true
 
-# plugins:
-#   - serverless-offline
+plugins:
+  - serverless-offline

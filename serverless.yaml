@@ -12,16 +12,23 @@ provider:
   timeout: 10
 
 functions:
-  hello:
-    handler: handler.hello
+  api:
+    handler: dist/handler.handler
     events:
       - http:
-          path: /
-          method: get
+          path: /{proxy+}
+          method: ANY
+          cors: true
+  # hello:
+  #   handler: handler.hello
+  #   events:
+  #     - http:
+  #         path: /hello
+  #         method: get
 
 # package:
 #   individually: true
 #   excludeDevDependencies: true
 
-# plugins:
-#   - serverless-offline
+plugins:
+  - serverless-offline

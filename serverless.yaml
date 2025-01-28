@@ -4,12 +4,19 @@ org: morecore
 app: hm-api
 service: hm-service
 
+package:
+  patterns:
+    - "!./**"
+    - "package.json"
+    - "node_modules/**"
+    - "dist/**"
+
 provider:
   name: aws
   runtime: nodejs20.x
   region: eu-west-3
   memorySize: 128
-  timeout: 10
+  timeout: 60
   httpApi:
     cors:
       allowedOrigins:
@@ -25,15 +32,7 @@ provider:
         - OPTIONS
   apiGateway:
     shouldStartNameWithService: true
-    restApi:
-      role:
-        statements:
-          - Effect: Allow
-            Action:
-              - logs:CreateLogGroup
-              - logs:CreateLogStream
-              - logs:PutLogEvents
-            Resource: "*"
+
   # environment:
   #   TOKEN_SECRET_KEY: ${env:TOKEN_SECRET_KEY}
   #   DB_USERNAME: ${env:DB_USERNAME}
@@ -51,7 +50,41 @@ functions:
       - http:
           path: /{proxy+}
           method: ANY
-          cors: true
+          cors:
+            origin: '*'  # Permite todas las orígenes, ajusta según sea necesario.
+            allowHeaders:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+            allowMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowCredentials: true
+
+  hello:
+    handler: dist/handler.hello
+    events:
+      - http:
+          path: /hello-world
+          method: ANY
+          cors: 
+            origin: '*'  # Permite todas las orígenes, ajusta según sea necesario.
+            allowHeaders:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+            allowMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowCredentials: true
 
 # package:
 #   individually: true

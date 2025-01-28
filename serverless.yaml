@@ -10,6 +10,30 @@ provider:
   region: eu-west-3
   memorySize: 128
   timeout: 10
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+  apiGateway:
+    shouldStartNameWithService: true
+    restApi:
+      role:
+        statements:
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"
   # environment:
   #   TOKEN_SECRET_KEY: ${env:TOKEN_SECRET_KEY}
   #   DB_USERNAME: ${env:DB_USERNAME}
